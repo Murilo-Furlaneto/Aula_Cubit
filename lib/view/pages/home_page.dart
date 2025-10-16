@@ -27,13 +27,7 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     cubit = BlocProvider.of<TodoCubit>(context);
-    cubit.stream.listen((state){
-      if(state is ErrorTodoState){
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(state.message))
-        );
-      }
-    });
+
   }
 
   @override
@@ -46,17 +40,16 @@ class _HomePageState extends State<HomePage> {
           BlocBuilder(
             bloc: cubit,
             builder: (context, state) {
-              if (state is InitialTodoState) {
-                return Center(
-                  child: Text("Nenhuma tarefa foi adicionada ainda"),
-                );
-              } else if (state is LoadingTodoState) {
+             if (state is LoadingTodoState) {
                 return const Center(child: CircularProgressIndicator());
               } else if (state is LoadedTodoState) {
                 return TodoLsitWidget(todos: state.todos, cubit: cubit,);
-              } else {
-                return TodoLsitWidget(todos: cubit.todos, cubit: cubit,);
+              } else  if (state is ErrorTodoState) {
+                return  Center(child: Text("Erro: ${state.message}"),);
               }
+              return Center(
+                  child: Text("Nenhuma tarefa foi adicionada ainda"),
+                );
             },
           ),
           Positioned(
@@ -64,15 +57,6 @@ class _HomePageState extends State<HomePage> {
             left: 0,
             right: 0,
             child: Container(
-              decoration: BoxDecoration(
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black,
-                    offset: const Offset(0, -5),
-                    blurRadius: 4,
-                  ),
-                ],
-              ),
               padding: const EdgeInsets.all(16),
               child: SafeArea(
                 child: Row(

@@ -45,7 +45,7 @@ class _PostPageState extends State<PostPage> {
           const SizedBox(height: 20),
           if (_showList)
             Expanded(
-              child: BlocBuilder(
+              child: BlocBuilder<PostCubit, ApiState>(
                 bloc: cubit,
                 builder: (context, state) {
                    if (state is InitialState) {
