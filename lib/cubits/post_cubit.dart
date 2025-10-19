@@ -2,7 +2,7 @@ import 'dart:core';
 import 'dart:collection';
 
 import 'package:aula_cubit/cubits/api_state.dart';
-import 'package:aula_cubit/data/datasource/remote/model/post_data_model.dart';
+import 'package:aula_cubit/data/model/post_data_model.dart';
 import 'package:aula_cubit/data/repository/post_repository.dart';
 import 'package:bloc/bloc.dart';
 

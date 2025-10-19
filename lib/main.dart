@@ -1,6 +1,8 @@
+import 'dart:io';
+import 'package:http/http.dart' as Http;
 import 'package:aula_cubit/cubits/post_cubit.dart';
 import 'package:aula_cubit/cubits/todo_cubit.dart';
-import 'package:aula_cubit/data/datasource/remote/model/post_data_model.dart';
+import 'package:aula_cubit/data/model/post_data_model.dart';
 import 'package:aula_cubit/data/datasource/remote/service/post_service.dart';
 import 'package:aula_cubit/data/repository/post_repository.dart';
 import 'package:aula_cubit/data/repository/post_repository_impl.dart';
@@ -22,7 +24,7 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider<TodoCubit>(create: (_) => TodoCubit()),
         BlocProvider<PostCubit>(
-          create: (_) => PostCubit(PostRepositoryImpl(service: PostService(), )),
+          create: (_) => PostCubit(PostRepositoryImpl(service: PostService(client: Http.Client()))),
         ),
       ],
       child: MaterialApp(
